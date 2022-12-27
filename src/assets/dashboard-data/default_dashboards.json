@@ -1,0 +1,22 @@
+[
+    {
+      "dashboardId": "1",
+      "name": "Dashboard 1",
+      "widgets" : []
+    },
+    {
+      "dashboardId": "2",
+      "name": "Dashboard 2",
+      "widgets" : []
+    },
+    {
+      "dashboardId": "3",
+      "name": "Dashboard 3",
+      "widgets": []
+    },
+    {
+      "dashboardId": "4",
+      "name": "Dashboard 4",
+      "widgets": []
+    }
+  ]

@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>
+  <p *ngIf="!(title)">
+    {{'i18n-general_dialog_alert_header' }}
+  </p>
+  <p *ngIf="title">
+    {{title}}
+  </p>
+  <mat-divider></mat-divider>
+</h1>
+
+
+<div mat-dialog-content>
+  <span style="white-space: pre-line">
+    {{message }}
+  </span>
+</div>
+<div mat-dialog-actions>
+  <button *ngIf="confirm" mat-button [mat-dialog-close]="true">{{'i18n-general-yes' }}</button>
+  <button *ngIf="confirm" mat-button (click)="onNoClick()" cdkFocusInitial>{{'i18n-general-no' }}</button>
+  <button *ngIf="!confirm" mat-button [mat-dialog-close]="true" cdkFocusInitial>{{'i18n-general-okay'}}</button>
+</div>

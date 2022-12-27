@@ -1,0 +1,19 @@
+<div mat-dialog-title>
+
+  <mat-icon style="color: burlywood; vertical-align: middle;"> warning</mat-icon>
+  <span style="vertical-align: middle;">
+    Hata Mesajı
+  </span>
+
+  <mat-divider></mat-divider>
+</div>
+
+<div mat-dialog-content>
+  <span style="white-space: pre-line">
+    {{message}}
+  </span>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Okay</button>
+</div>

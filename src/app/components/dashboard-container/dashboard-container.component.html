@@ -1,0 +1,75 @@
+<mat-sidenav-container>
+    <mat-toolbar>
+        <button *ngIf="!editDashboardNameMode" style="font-size: 20px;" mat-button [matMenuTriggerFor]="dashboardMenu">
+            {{ dashboardName }}
+            <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+
+        <input autocomplete="off" *ngIf='editDashboardNameMode' [(ngModel)]='dashboardName' class='cellInput'
+            appAutofocus type='text'>
+
+        <button mat-icon-button *ngIf="!editDashboardNameMode" (click)="editDashboardName()">
+            <mat-icon>edit</mat-icon>
+        </button>
+
+        <button mat-icon-button *ngIf="editDashboardNameMode" (click)="saveDashboardName()">
+            <mat-icon>save</mat-icon>
+        </button>
+
+        <mat-menu #dashboardMenu="matMenu">
+            <div mat-menu-item *ngFor="let d of dashboards">
+                <button mat-button target="_blank" (click)="onMenuClick(d)">
+                    <mat-icon>dashboard</mat-icon>
+                    <span>{{d.name}}</span>
+                </button>
+                <button style="float: right;" mat-icon-button target="_blank"
+                    (click)="onNewTab(d);$event.stopPropagation()">
+                    <mat-icon>open_in_new</mat-icon>
+                </button>
+            </div>
+
+
+        </mat-menu>
+
+        <span class="menu-spacer"></span>
+
+        <div>
+
+            <button style="font-size: 20px;" mat-button class="crm-command-bar-button" (click)="onToggleSidenav()">
+                <mat-icon>widgets</mat-icon>
+                {{'i18n-dashboard-widgets' }}
+            </button>
+        </div>
+    </mat-toolbar>
+
+
+    <mat-sidenav #componentsSidenav position="end" mode="side" autosize opened="true">
+        <mat-list style="padding: 10px;">
+
+            <button mat-stroked-button (click)="onToggleSidenav()" style="width: 100%;">
+                {{'i18n-general-close' }}
+                <i class="pi pi-arrow-right"></i>
+            </button>
+
+            <hr>
+
+            <mat-card *ngFor="let item of sidenavItems" style="padding: 15px; margin-bottom: 10px; text-align: center;">
+
+                <div class="draggables" draggable="true" (dragstart)="onDragStart($event, item.component)">
+                    <img mat-card-sm-image [src]="item.icon">
+
+                    <mat-card-content>
+                        <mat-card-subtitle>
+                            {{item.componentName }}
+                        </mat-card-subtitle>
+                    </mat-card-content>
+                </div>
+
+            </mat-card>
+        </mat-list>
+    </mat-sidenav>
+
+    <div style="width: 100%; height: 100vh;">
+        <dashboard [dashboardId]="dashboardId" [dashboardName]="dashboardName"></dashboard>
+    </div>
+</mat-sidenav-container>
