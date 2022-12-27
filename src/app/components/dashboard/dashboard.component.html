@@ -24,8 +24,7 @@
                 </mat-toolbar-row>
             </mat-toolbar>
 
-            {{item | json}}
-            <div class="componentContainer" id="style-1" style="">
+            <div class="componentContainer">
 
                 <ndc-dynamic #component [ndcDynamicComponent]=findComponent(item.component) [ndcDynamicInputs]="item"
                     [ndcDynamicOutputs]="outputs">
@@ -36,10 +35,3 @@
     </ng-container>
 
 </gridster>
-
-
-<div class="loading-shade" *ngIf="isLoading">
-    <mat-spinner></mat-spinner>
-</div>
-
-<app-dummy>

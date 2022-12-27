@@ -3,7 +3,7 @@ import { DashboardComponentDec } from 'src/app/services/decorator/decorator-help
 
 @DashboardComponentDec({
   desc: 'AnotherDesc',
-  icon: './assets/img/sidenav-icons/graph.png',
+  icon: './assets/sidenav-icons/A.png',
   componentName: 'AnotherComp',
   component: AnotherComponent
 })

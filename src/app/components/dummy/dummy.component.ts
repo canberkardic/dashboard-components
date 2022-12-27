@@ -4,7 +4,7 @@ import { DashboardComponentDec } from 'src/app/services/decorator/decorator-help
 
 @DashboardComponentDec({
   desc: 'DummyDesc',
-  icon: './assets/img/sidenav-icons/graph.png',
+  icon: './assets/sidenav-icons/graph.png',
   componentName: 'DummyComponent',
   component: DummyComponent
 })

@@ -149,7 +149,6 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 
 
 
-
   public itemResize(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
     itemComponent.gridster.curRowHeight += (item.cols * 100 - item.rows) / 10000;
     if (itemComponent.gridster.curRowHeight > 1) {
@@ -208,7 +207,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 
 
   onDelete(widget: any) {
-    let dialogRef = this.dialogService.openCustomDialog('i18n-general-delete_question', true);
+    let dialogRef = this.dialogService.openCustomDialog('Are you sure to delete', true);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

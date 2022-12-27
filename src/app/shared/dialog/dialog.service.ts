@@ -18,7 +18,7 @@ export class DialogService {
     this.dialog.open(DialogComponent, {
       width: '350px',
       data: {
-        message: 'i18n-general-success-message',
+        message: 'Operation Successfull',
         confirm: false
       }
     })
@@ -28,7 +28,7 @@ export class DialogService {
     this.dialog.open(DialogComponent, {
       width: '350px',
       data: {
-        message: 'i18n-general-fail_message',
+        message: 'Operation Failed',
         confirm: false
       }
     })

@@ -34,7 +34,9 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
   sidenavItems?: any[];
 
   dashboards: any[];
-  dashboardId: string = "1";
+
+
+  dashboardId: string;
   dashboardName: string;
 
   editDashboardNameMode: boolean = false;
@@ -50,11 +52,15 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.sidenavItems = whoUsedIt();
+    this._dashboardService.getDefaultDashboards().subscribe((data: any) => {
+      this.dashboards = data;
+      const { dashboardId, name } = data[0];
+      this.dashboardId = dashboardId;
+      this.dashboardName = name;
+    })
   }
 
   ngAfterViewInit() {
-    let data = whoUsedIt();
-    console.log(data);
 
   }
 
@@ -83,7 +89,6 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
 
   onDragStart(event: DragEvent, component: any) {
 
-    console.log("DragStart", component);
 
 
     if (event.dataTransfer) {

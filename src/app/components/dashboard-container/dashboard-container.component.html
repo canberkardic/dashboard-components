@@ -37,17 +37,17 @@
 
             <button style="font-size: 20px;" mat-button class="crm-command-bar-button" (click)="onToggleSidenav()">
                 <mat-icon>widgets</mat-icon>
-                {{'i18n-dashboard-widgets' }}
+                Open/Close Widget List
             </button>
         </div>
     </mat-toolbar>
 
 
-    <mat-sidenav #componentsSidenav position="end" mode="side" autosize opened="true">
+    <mat-sidenav #componentsSidenav position="end" mode="side" aFutosize>
         <mat-list style="padding: 10px;">
 
             <button mat-stroked-button (click)="onToggleSidenav()" style="width: 100%;">
-                {{'i18n-general-close' }}
+                Close
                 <i class="pi pi-arrow-right"></i>
             </button>
 

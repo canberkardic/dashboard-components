@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 
@@ -7,7 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.css'],
-  imports: [MatDialogModule, MatDividerModule, NgIf],
+  imports: [MatDialogModule, MatDividerModule, NgIf, MatButtonModule],
   standalone: true
 })
 export class DialogComponent implements OnInit {

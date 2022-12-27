@@ -16,6 +16,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 import { DashboardContainerComponent } from './components/dashboard-container/dashboard-container.component';
 import { FormsModule } from '@angular/forms';
 import { DummyComponent } from './components/dummy/dummy.component';
@@ -46,6 +47,7 @@ import { AnotherComponent } from './components/another/another.component';
     HttpClientModule,
     MatDialogModule,
     MatMenuModule,
+    MatButtonModule
 
   ],
   providers: [],

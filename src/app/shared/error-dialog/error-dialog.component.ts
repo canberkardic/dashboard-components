@@ -18,7 +18,7 @@ export class ErrorDialogComponent implements OnInit {
     if (this.data.message) {
       this.message = this.data.message;
     } else {
-      this.message = "i18n-error-occured"
+      this.message = "Error Occured"
     }
   }
 
