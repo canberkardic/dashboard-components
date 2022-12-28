@@ -1,1 +1,13 @@
-<p>Günlük Raporlar</p>
+<div *ngIf="!showPreferences">
+    <p>{{componentUuid}}</p>
+    <p>Günlük Raporlar</p>
+</div>
+
+<div *ngIf="showPreferences">
+    <div>
+        <label>
+            Seçenekler
+        </label>
+        <input matInput>
+    </div>
+</div>

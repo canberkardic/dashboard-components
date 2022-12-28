@@ -25,8 +25,6 @@ import { DialogService } from 'src/app/shared/dialog/dialog.service';
 
 import { ErrorDialogService } from 'src/app/shared/error-dialog/error-dialog.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { DecoratorService } from 'src/app/services/decorator/decorator.service';
-import { DummyComponent } from '../dummy/dummy.component';
 import { whoUsedIt } from 'src/app/services/decorator/decorator-helpter';
 
 @Component({
@@ -69,7 +67,6 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
     private renderer: Renderer2,
     private _dashboardService: DashboardService,
     private dialogService: DialogService,
-    private decoratorService: DecoratorService,
     private _errorDialogService: ErrorDialogService
   ) { }
 
@@ -114,6 +111,11 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.gridItem && this.gridItem.gridster.curRowHeight > 1) {
       this.unitHeight = this.gridItem.gridster.curRowHeight;
     }
+  }
+
+  getItemInputs(item: any) {
+    const { componentUuid, preferences } = item;
+    return { componentUuid, preferences };
   }
 
   public getOptions() {
@@ -194,17 +196,15 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 
 
   onSettings(item: IDashboardWidget) {
-
     let dynamicComponents = this.dynamicComponents['_results'];
 
-    console.log("Veri", dynamicComponents);
 
 
-    // let component = dynamicComponents.find((c: any) =>
-    //   c.componentRef.instance.componentUuid == item.componentUuid
-    // );
+    let component = dynamicComponents.find((c: any) =>
+      c.componentRef.instance.componentUuid == item.componentUuid
+    );
 
-    // component.componentRef.instance.showComponentPrefs();
+    component.componentRef.instance.toggleComponentPrefs();
   }
 
 

@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { DashboardComponentDec, IDashboardComponentActions } from 'src/app/services/decorator/decorator-helpter';
 
 @DashboardComponentDec({
-  desc: 'DummyDesc',
+  desc: 'RandomComponentDesc',
   icon: './assets/sidenav-icons/K.png',
   componentName: 'RandomComponent',
   component: RandomComponent
@@ -19,6 +19,9 @@ import { DashboardComponentDec, IDashboardComponentActions } from 'src/app/servi
   styleUrls: ['./random.component.scss']
 })
 export class RandomComponent implements IDashboardComponentActions {
+  toggleComponentPrefs: () => void;
+  showPreferences: boolean = true;
+
   @Input()
   public componentUuid: any;
 

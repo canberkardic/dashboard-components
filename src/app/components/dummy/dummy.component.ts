@@ -22,6 +22,7 @@ import { DashboardComponentDec, IDashboardComponentActions } from 'src/app/servi
 
 export class DummyComponent implements OnInit, IDashboardComponentActions {
 
+
   @Input()
   public componentUuid: any;
 
@@ -30,9 +31,18 @@ export class DummyComponent implements OnInit, IDashboardComponentActions {
 
   @Output()
   preferenceSetted = new EventEmitter<string>();
+
+  showPreferences: boolean;
+
+
   ngOnInit(): void {
 
   }
+
+  toggleComponentPrefs(): void {
+    this.showPreferences = !this.showPreferences;
+  }
+
 
 }
 

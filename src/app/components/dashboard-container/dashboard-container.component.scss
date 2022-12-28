@@ -1,3 +1,19 @@
 .menu-spacer {
     flex: 1 1 auto;
 }
+.dashboardNameInput {
+    background: #e7e7e7;
+    padding: 0.5em;
+    border-radius: 3px;
+    border: none;
+}
+
+button.centered.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base:hover {
+    background-color: #FFFFFF;
+}
+
+
+::ng-deep .mat-mdc-list-item .mdc-list-item__primary-text {
+    display: inline-flex;
+    align-items: center;
+}

@@ -1,13 +1,13 @@
 <mat-sidenav-container [hasBackdrop]="false">
     <mat-toolbar>
         <button *ngIf="!editDashboardNameMode" style="font-size: 20px;" mat-button [matMenuTriggerFor]="dashboardMenu">
-            <span style="display: flex; justify-content: center; align-items: center;">
+            <span class="centered">
                 <span> {{ dashboardName }} </span>
             <mat-icon>arrow_drop_down</mat-icon>
         </span>
         </button>
 
-        <input matInput autocomplete="off" *ngIf='editDashboardNameMode' [(ngModel)]='dashboardName' class='cellInput'
+        <input matInputs class="dashboardNameInput" autocomplete="off" *ngIf='editDashboardNameMode' [(ngModel)]='dashboardName'
             appAutofocus type='text'>
 
         <button mat-icon-button *ngIf="!editDashboardNameMode" (click)="editDashboardName()">
@@ -19,16 +19,19 @@
         </button>
 
         <mat-menu #dashboardMenu="matMenu">
-            <div mat-menu-item *ngFor="let d of dashboards">
-                <button mat-button target="_blank" (click)="onMenuClick(d)">
+        <mat-list class="centered" role="list" *ngFor="let d of dashboards">
+            <mat-list-item role="listitem">
+        
+                <button class="centered" mat-button target="_blank" (click)="onMenuClick(d)">
                     <span>{{d.name}}</span>
                     <mat-icon>dashboard</mat-icon>
                 </button>
-                <button style="float: right;" mat-icon-button target="_blank"
-                    (click)="onNewTab(d);$event.stopPropagation()">
+                <button style="float: right;" mat-icon-button target="_blank" (click)="onNewTab(d);$event.stopPropagation()">
                     <mat-icon>open_in_new</mat-icon>
                 </button>
-            </div>
+                </mat-list-item>
+                
+                </mat-list>
 
 
         </mat-menu>
@@ -39,7 +42,7 @@
 
             <button style="font-size: 20px;" mat-button class="crm-command-bar-button" (click)="onToggleSidenav()">
                 <mat-icon>widgets</mat-icon>
-                Open/Close Widget List
+                Widget List
             </button>
         </div>
     </mat-toolbar>

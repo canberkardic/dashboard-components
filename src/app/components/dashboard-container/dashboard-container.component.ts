@@ -17,7 +17,6 @@ export interface ISidenavItem {
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DecoratorService } from 'src/app/services/decorator/decorator.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { whoUsedIt } from 'src/app/services/decorator/decorator-helpter';
 
@@ -46,7 +45,6 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
     private _dashboardService: DashboardService,
     private route: ActivatedRoute,
     private router: Router,
-    private decoratorService: DecoratorService
   ) { }
 
   ngOnInit() {
@@ -82,8 +80,7 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
   }
 
   saveDashboardName() {
-
-
+    this.editDashboardName();
   }
 
   onDragStart(event: DragEvent, data: any) {
@@ -91,7 +88,8 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
       event.dataTransfer?.setData('component', JSON.stringify(data));
       event.dataTransfer.dropEffect = 'copy';
     }
-
   }
+
+
 
 }

@@ -1,6 +1,5 @@
 import { InputDecorator } from "@angular/core";
 import { EventEmitter } from "@angular/core";
-import { Input } from "@angular/core";
 
 export interface IDashboardComponent {
     desc?: string,
@@ -19,6 +18,8 @@ export interface IDashboardComponentActions {
     componentUuid: InputDecorator;
     preferences: InputDecorator;
     preferenceSetted: EventEmitter<string>
+    showPreferences: boolean;
+    toggleComponentPrefs(): void
 }
 
 export function DashboardComponentDec(options: any) {

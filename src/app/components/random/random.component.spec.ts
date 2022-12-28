@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RandomComponent } from './random.component';
+import { RandomComponent } from "./RandomComponent";
 
 describe('RandomComponent', () => {
   let component: RandomComponent;
