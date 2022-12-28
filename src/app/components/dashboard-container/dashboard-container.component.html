@@ -1,4 +1,4 @@
-<mat-sidenav-container>
+<mat-sidenav-container [hasBackdrop]="false">
     <mat-toolbar>
         <button *ngIf="!editDashboardNameMode" style="font-size: 20px;" mat-button [matMenuTriggerFor]="dashboardMenu">
             {{ dashboardName }}
@@ -43,7 +43,7 @@
     </mat-toolbar>
 
 
-    <mat-sidenav #componentsSidenav position="end" mode="side" aFutosize>
+    <mat-sidenav #componentsSidenav position="end" mode="over" autosize>
         <mat-list style="padding: 10px;">
 
             <button mat-stroked-button (click)="onToggleSidenav()" style="width: 100%;">
