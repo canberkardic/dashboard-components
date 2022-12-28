@@ -1,11 +1,13 @@
 <mat-sidenav-container [hasBackdrop]="false">
     <mat-toolbar>
         <button *ngIf="!editDashboardNameMode" style="font-size: 20px;" mat-button [matMenuTriggerFor]="dashboardMenu">
-            {{ dashboardName }}
+            <span style="display: flex; justify-content: center; align-items: center;">
+                <span> {{ dashboardName }} </span>
             <mat-icon>arrow_drop_down</mat-icon>
+        </span>
         </button>
 
-        <input autocomplete="off" *ngIf='editDashboardNameMode' [(ngModel)]='dashboardName' class='cellInput'
+        <input matInput autocomplete="off" *ngIf='editDashboardNameMode' [(ngModel)]='dashboardName' class='cellInput'
             appAutofocus type='text'>
 
         <button mat-icon-button *ngIf="!editDashboardNameMode" (click)="editDashboardName()">
@@ -19,8 +21,8 @@
         <mat-menu #dashboardMenu="matMenu">
             <div mat-menu-item *ngFor="let d of dashboards">
                 <button mat-button target="_blank" (click)="onMenuClick(d)">
-                    <mat-icon>dashboard</mat-icon>
                     <span>{{d.name}}</span>
+                    <mat-icon>dashboard</mat-icon>
                 </button>
                 <button style="float: right;" mat-icon-button target="_blank"
                     (click)="onNewTab(d);$event.stopPropagation()">
@@ -55,7 +57,7 @@
 
             <mat-card *ngFor="let item of sidenavItems" style="padding: 15px; margin-bottom: 10px; text-align: center;">
 
-                <div class="draggables" draggable="true" (dragstart)="onDragStart($event, item.component)">
+                <div class="draggables" draggable="true" (dragstart)="onDragStart($event, item)">
                     <img mat-card-sm-image [src]="item.icon">
 
                     <mat-card-content>

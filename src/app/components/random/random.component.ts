@@ -1,27 +1,24 @@
 import { Input } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DashboardComponentDec, IDashboardComponentActions } from 'src/app/services/decorator/decorator-helpter';
-
-
 
 @DashboardComponentDec({
   desc: 'DummyDesc',
-  icon: './assets/sidenav-icons/graph.png',
-  componentName: 'DummyComponent',
-  component: DummyComponent
+  icon: './assets/sidenav-icons/K.png',
+  componentName: 'RandomComponent',
+  component: RandomComponent
 })
+
+
 
 @Component({
-  selector: 'app-dummy',
-  templateUrl: './dummy.component.html',
-  styleUrls: ['./dummy.component.scss'],
-
+  selector: 'app-random',
+  templateUrl: './random.component.html',
+  styleUrls: ['./random.component.scss']
 })
-
-export class DummyComponent implements OnInit, IDashboardComponentActions {
-
+export class RandomComponent implements IDashboardComponentActions {
   @Input()
   public componentUuid: any;
 
@@ -30,10 +27,4 @@ export class DummyComponent implements OnInit, IDashboardComponentActions {
 
   @Output()
   preferenceSetted = new EventEmitter<string>();
-  ngOnInit(): void {
-
-  }
-
 }
-
-

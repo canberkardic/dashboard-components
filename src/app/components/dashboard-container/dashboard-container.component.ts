@@ -19,7 +19,6 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DecoratorService } from 'src/app/services/decorator/decorator.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { DummyComponent } from '../dummy/dummy.component';
 import { whoUsedIt } from 'src/app/services/decorator/decorator-helpter';
 
 
@@ -87,12 +86,9 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
 
   }
 
-  onDragStart(event: DragEvent, component: any) {
-
-
-
+  onDragStart(event: DragEvent, data: any) {
     if (event.dataTransfer) {
-      event.dataTransfer?.setData('component', component);
+      event.dataTransfer?.setData('component', JSON.stringify(data));
       event.dataTransfer.dropEffect = 'copy';
     }
 

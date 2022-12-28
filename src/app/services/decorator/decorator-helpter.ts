@@ -1,3 +1,6 @@
+import { InputDecorator } from "@angular/core";
+import { EventEmitter } from "@angular/core";
+import { Input } from "@angular/core";
 
 export interface IDashboardComponent {
     desc?: string,
@@ -6,25 +9,22 @@ export interface IDashboardComponent {
     component: any
 }
 
-
 const REGISTRY: any[] = [];
-
-export function DashboardComponentDec(componentDefinition: IDashboardComponent): ClassDecorator {
-    return function (customComponent) {
-        // Component itself
-        REGISTRY.push(componentDefinition)
-
-        // Adds a property "ToolboxComponent"
-        Object.defineProperty(customComponent, DashboardComponentDec.name, {
-            value: componentDefinition
-        })
-    }
-}
-
 
 
 export function whoUsedIt(): any {
     return REGISTRY;
 }
+export interface IDashboardComponentActions {
+    componentUuid: InputDecorator;
+    preferences: InputDecorator;
+    preferenceSetted: EventEmitter<string>
+}
 
+export function DashboardComponentDec(options: any) {
+    return function <T extends new (...args: {}[]) => IDashboardComponentActions>(target: T) {
+        REGISTRY.push(options)
+
+    }
+}
 

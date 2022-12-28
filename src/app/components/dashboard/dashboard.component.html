@@ -25,8 +25,7 @@
             </mat-toolbar>
 
             <div class="componentContainer">
-
-                <ndc-dynamic #component [ndcDynamicComponent]=findComponent(item.component) [ndcDynamicInputs]="item"
+                <ndc-dynamic #component [ndcDynamicComponent]=findComponent(item.name) [ndcDynamicInputs]="item"
                     [ndcDynamicOutputs]="outputs">
                 </ndc-dynamic>
             </div>

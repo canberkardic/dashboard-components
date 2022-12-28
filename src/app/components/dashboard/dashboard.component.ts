@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
   findComponent(param: any) {
     let data = whoUsedIt();
 
-    let c = data.find((d: any) => d.component == param);
+    let c = data.find((d: any) => d.componentName == param);
     return c.component;
   }
 
@@ -159,14 +159,15 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 
   onDrop(event: any) {
 
-    const result = event.dataTransfer.getData('component');
 
     /**UUID Generation
      See https://bit.ly/37dkPPf
      **/
 
+    const result = event.dataTransfer.getData('component');
 
 
+    const { desc, componentName, icon } = JSON.parse(result);
     const myId = uuid.v4();
 
     //let result = this.decoratorService.getDashboardComponent(component);
@@ -175,10 +176,9 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
       componentUuid: myId,
       cols: 4,
       rows: 4,
-      desc: 'desc',
-      name: 'componentName',
-      component: result,
-      icon: 'icon',
+      desc: desc,
+      name: componentName,
+      icon: icon,
     }
 
     this.widgets.push(item);
@@ -197,11 +197,14 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 
     let dynamicComponents = this.dynamicComponents['_results'];
 
-    let component = dynamicComponents.find((c: any) =>
-      c.componentRef.instance.componentUuid == item.componentUuid
-    );
+    console.log("Veri", dynamicComponents);
 
-    component.componentRef.instance.showComponentPrefs();
+
+    // let component = dynamicComponents.find((c: any) =>
+    //   c.componentRef.instance.componentUuid == item.componentUuid
+    // );
+
+    // component.componentRef.instance.showComponentPrefs();
   }
 
 

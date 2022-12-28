@@ -17,10 +17,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { DashboardContainerComponent } from './components/dashboard-container/dashboard-container.component';
 import { FormsModule } from '@angular/forms';
 import { DummyComponent } from './components/dummy/dummy.component';
 import { AnotherComponent } from './components/another/another.component';
+import { RandomComponent } from './components/random/random.component';
 
 
 @NgModule({
@@ -29,17 +31,19 @@ import { AnotherComponent } from './components/another/another.component';
     DashboardComponent,
     DashboardContainerComponent,
     DummyComponent,
-    AnotherComponent
+    AnotherComponent,
+    RandomComponent
   ],
   imports: [
+    DynamicModule,
     MatCardModule,
+    MatInputModule,
     MatListModule,
     MatSidenavModule,
     FormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    DynamicModule,
     MatIconModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
@@ -50,8 +54,13 @@ import { AnotherComponent } from './components/another/another.component';
     MatButtonModule
 
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: "ENTRY_COMPONENTS",
+      useValue: [AnotherComponent, DummyComponent, RandomComponent]
+    }
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 
