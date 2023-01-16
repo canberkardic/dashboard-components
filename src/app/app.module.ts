@@ -32,7 +32,7 @@ import { RandomComponent } from './components/random/random.component';
     DashboardContainerComponent,
     DummyComponent,
     AnotherComponent,
-    RandomComponent
+    RandomComponent,
   ],
   imports: [
     DynamicModule,

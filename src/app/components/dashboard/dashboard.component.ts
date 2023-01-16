@@ -146,6 +146,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
       emptyCellDropCallback: this.onDrop.bind(this),
       itemChangeCallback: this.saveDashboard.bind(this),
       itemResizeCallback: this.itemResize.bind(this),
+      setGridSize: true
     };
   }
 

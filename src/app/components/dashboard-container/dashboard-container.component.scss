@@ -12,8 +12,41 @@ button.centered.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base:hover
     background-color: #FFFFFF;
 }
 
+::ng-deep .mat-mdc-card-subtitle {
+    font-family: Montserrat;
+}
+
+::ng-deep .mat-mdc-card-content:last-child {
+    padding: 0;
+}
 
 ::ng-deep .mat-mdc-list-item .mdc-list-item__primary-text {
     display: inline-flex;
     align-items: center;
+}
+.componentContainer {
+    max-height: calc(100% - 64px);
+    margin: 5px;
+}
+
+.sidenavList {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.sidenavCard {
+    padding: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.toolbar {
+    background-color: #153D77;
+    color: #e7e7e7
+}
+
+.toolbarText {
+    font-weight: 400;
 }
