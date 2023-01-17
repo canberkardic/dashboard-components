@@ -9,7 +9,7 @@ import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { ErrorDialogService } from 'src/app/shared/error-dialog/error-dialog.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { findComponentInRegistry, getDashboardComponents } from 'src/app/services/decorator/decorator-helpter';
-import { IDashboard, IDashboardWidget } from 'src/app/models/models';
+import { IDashboard, IDashboardWidget } from 'src/app/models/dashboard';
 
 @Component({
   selector: 'dashboard',
@@ -22,33 +22,29 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
   @ViewChild('gridsterItem', { static: false }) gridItem!: GridsterItemComponent;
 
   @Input()
-  id: any;
+  id: string;
 
   @Input()
-  name: any;
-
-
+  name: string;
 
   /* 
-    If a child (dashboard component emit)
+    If a child (dashboard component emit settings from it's configuration)
+    this function redirects it to the handler function to save settings.
   */
   outputs = {
     preferenceSetted: (item: any) => this.onPreferenceSetted(item)
   }
 
-  public options: GridsterConfig;
+  options: GridsterConfig;
+  item!: GridsterItem;
 
-  public unitHeight!: number; //needed for highcharts resize
-  public item!: GridsterItem;
+  widgets: IDashboardWidget[];
 
-  public widgets: IDashboardWidget[];
+  //needed for highcharts resize
+  private unitHeight!: number; 
 
-  components = getDashboardComponents();
   isLoading: boolean = false;
-
   showSettingsButton: boolean = true;
-
-
 
   constructor(
     private elementRef: ElementRef,
@@ -164,6 +160,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
       desc: desc,
       name: componentName,
       icon: icon,
+      preferences: []
     }
 
 
@@ -173,7 +170,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
     //this.saveDashboard()
   }
 
-  onPreferenceSetted(item: any) {
+  onPreferenceSetted(item: IDashboardWidget) {
     let foundComponent = this.widgets.find(w => w.componentUuid == item.componentUuid);
 
     if (foundComponent) {

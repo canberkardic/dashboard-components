@@ -2,8 +2,9 @@ import { Input } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { Component } from '@angular/core';
-import { IDashboardComponentActions } from 'src/app/models/models';
+import { IDashboardComponentProps } from 'src/app/models/dashboard-component';
 import { DashboardComponentDec } from 'src/app/services/decorator/decorator-helpter';
+
 
 @DashboardComponentDec({
   desc: 'RandomComponentDesc',
@@ -19,7 +20,7 @@ import { DashboardComponentDec } from 'src/app/services/decorator/decorator-help
   templateUrl: './random.component.html',
   styleUrls: ['./random.component.scss']
 })
-export class RandomComponent implements IDashboardComponentActions {
+export class RandomComponent implements IDashboardComponentProps {
   toggleComponentPrefs: () => void;
   showPreferences: boolean = true;
 

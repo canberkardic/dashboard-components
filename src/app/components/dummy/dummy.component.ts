@@ -2,7 +2,7 @@ import { Input } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { IDashboardComponentActions } from 'src/app/models/models';
+import { IDashboardComponentProps } from 'src/app/models/dashboard-component';
 import { DashboardComponentDec } from 'src/app/services/decorator/decorator-helpter';
 
 
@@ -21,7 +21,7 @@ import { DashboardComponentDec } from 'src/app/services/decorator/decorator-help
 
 })
 
-export class DummyComponent implements OnInit, IDashboardComponentActions {
+export class DummyComponent implements OnInit, IDashboardComponentProps {
 
 
   @Input()

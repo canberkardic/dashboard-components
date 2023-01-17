@@ -1,4 +1,5 @@
-import { IDashboardComponent, IDashboardComponentActions } from "src/app/models/models";
+import { IDashboardComponent, IDashboardComponentProps } from "src/app/models/dashboard-component";
+
 
 const COMPONENT_REGISTRY: IDashboardComponent[] = [];
 
@@ -15,7 +16,7 @@ export function findComponentInRegistry(param: string) {
 }
 
 export function DashboardComponentDec(options: IDashboardComponent) {
-    return function <T extends new (...args: any) => IDashboardComponentActions>(target: T) {
+    return function <T extends new (...args: any) => IDashboardComponentProps>(target: T) {
         COMPONENT_REGISTRY.push(options)
     }
 }

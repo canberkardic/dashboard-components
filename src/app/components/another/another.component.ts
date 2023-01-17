@@ -3,7 +3,7 @@ import { Input } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { Component } from '@angular/core';
-import { IDashboardComponentActions } from 'src/app/models/models';
+import { IDashboardComponentProps } from 'src/app/models/dashboard-component';
 import { DashboardComponentDec } from 'src/app/services/decorator/decorator-helpter';
 
 const enterTransition = transition(':enter', [
@@ -57,7 +57,7 @@ export const fadeOut = trigger('fadeOut', [
     ])
   ],
 })
-export class AnotherComponent implements IDashboardComponentActions {
+export class AnotherComponent implements IDashboardComponentProps {
 
   @Input()
   public componentUuid: any;

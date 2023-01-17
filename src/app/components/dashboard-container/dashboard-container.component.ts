@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IDashboard, IDashboardComponent } from 'src/app/models/models';
+import { IDashboard } from 'src/app/models/dashboard';
+import { IDashboardComponent } from 'src/app/models/dashboard-component';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { getDashboardComponents } from 'src/app/services/decorator/decorator-helpter';
-
 
 @Component({
   selector: 'app-dashboard-container',
@@ -29,9 +29,10 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.sidenavItems = getDashboardComponents();
-    this._dashboardService.getDefaultDashboards().subscribe((data: any) => {
-      this.dashboards = data;
+    this._dashboardService.getDefaultDashboards().subscribe((data: IDashboard[]) => {
       const { id, name } = data[0];
+      this.dashboards = data;
+
       this.id = id;
       this.dashboardName = name;
     })
