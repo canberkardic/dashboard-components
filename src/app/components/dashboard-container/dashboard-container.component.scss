@@ -8,6 +8,7 @@
     border: none;
 }
 
+
 button.centered.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base:hover {
     background-color: #FFFFFF;
 }
@@ -43,10 +44,19 @@ button.centered.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base:hover
 }
 
 .toolbar {
-    background-color: #153D77;
-    color: #e7e7e7
+    background-color: #3f51b5;
+        color: #e7e7e7;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
 }
 
 .toolbarText {
     font-weight: 400;
+    font-size: 1rem;
+    }
+    
+    .dashboardNameContainer {
+        display: flex;
+        align-items: center;
 }

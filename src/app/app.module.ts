@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
 import { DummyComponent } from './components/dummy/dummy.component';
 import { AnotherComponent } from './components/another/another.component';
 import { RandomComponent } from './components/random/random.component';
+import { CenteredComponent } from './shared/centered/centered.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { RandomComponent } from './components/random/random.component';
     DummyComponent,
     AnotherComponent,
     RandomComponent,
+    CenteredComponent,
   ],
   imports: [
     DynamicModule,
@@ -61,6 +63,9 @@ import { RandomComponent } from './components/random/random.component';
     }
   ],
   bootstrap: [AppComponent],
+  exports: [
+    CenteredComponent
+  ],
 })
 export class AppModule {
 

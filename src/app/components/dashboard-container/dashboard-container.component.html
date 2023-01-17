@@ -1,10 +1,13 @@
+
+
 <mat-sidenav-container style="height: 100%;" [hasBackdrop]="false">
     <mat-toolbar class="toolbar">
+        <div class="dashboardNameContainer" style="margin-right: auto;">
         <button *ngIf="!editDashboardNameMode" mat-button [matMenuTriggerFor]="dashboardMenu">
-            <span class="centered toolbarText">
-                <span class="toolbarText"> {{ dashboardName }} </span>
-                <mat-icon>arrow_drop_down</mat-icon>
-            </span>
+            <centered>
+                <span body class="toolbarText"> {{ dashboardName }} </span>
+                <mat-icon suffix>arrow_drop_down</mat-icon>
+            </centered>
         </button>
 
         <input matInputs class="dashboardNameInput" autocomplete="off" *ngIf='editDashboardNameMode' [(ngModel)]='dashboardName'
@@ -23,30 +26,27 @@
             <mat-list-item role="listitem">
         
                 <button class="centered" mat-button target="_blank" (click)="onMenuClick(d)">
-                    <span>{{d.name}}</span>
-                    <mat-icon>dashboard</mat-icon>
+                    <span class="toolbarText"> {{d.name}}</span>
                 </button>
+
                 <button style="float: right;" mat-icon-button target="_blank" (click)="onNewTab(d);$event.stopPropagation()">
                     <mat-icon>open_in_new</mat-icon>
                 </button>
+
                 </mat-list-item>
-                
-                </mat-list>
-
-
+            </mat-list>
         </mat-menu>
+        </div>
 
-        <span class="menu-spacer"></span>
-
-        <div>
-
-            <button mat-button class="toolbarText" (click)="onToggleSidenav()">
-                <mat-icon>widgets</mat-icon>
-                <span>
+        <button mat-button class="toolbarText" (click)="onToggleSidenav()">
+            <centered>
+                <mat-icon prefix>widgets</mat-icon>
+                <span body class="toolbarText">
                     Widget List
                 </span>
-            </button>
-        </div>
+            </centered>
+        </button>
+    
     </mat-toolbar>
 
 
