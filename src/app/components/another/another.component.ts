@@ -58,7 +58,6 @@ export const fadeOut = trigger('fadeOut', [
   ],
 })
 export class AnotherComponent implements IDashboardComponentActions {
-  kind: string = "data";
 
   @Input()
   public componentUuid: any;

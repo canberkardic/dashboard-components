@@ -2,8 +2,10 @@ import { InputDecorator } from "@angular/core";
 import { EventEmitter } from "@angular/core";
 import { GridsterItem } from "angular-gridster2";
 
-type TClass = { new(...args: any[]): any; };
+type TClass = { new(...args: any[]): any; }; // Indicates that, this must be a class
 
+
+// Entity
 export interface IDashboard {
     id: string;
     name: string;
@@ -39,6 +41,6 @@ export interface IDashboardComponentActions {
 export interface IDashboardWidget extends GridsterItem {
     componentUuid: string;
     name: string;
-    widget: string;
-    preferences: any[];
+    widget?: string;
+    preferences?: any[];
 }

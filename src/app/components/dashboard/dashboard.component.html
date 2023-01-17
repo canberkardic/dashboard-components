@@ -1,26 +1,21 @@
-<gridster [options]="options" (onDrop)="onDrop($event)" style="background-color: #e8e8e8;">
+<gridster [options]="options" class="gridster" (onDrop)="onDrop($event)">
 
+    <ng-container *ngFor="let item of widgets; trackBy:item?.componentUuid" [style.overflow]="'hidden'">
+        <gridster-item [item]="item" id="{{item.componentUuid}}">
 
-    <ng-container *ngFor="let item of widgets" style="overflow: hidden;">
+            <mat-toolbar class="drag-handler component-toolbar">
+                <mat-toolbar-row>
+                    <span class="componentName">
+                        {{item.name}}
+                    </span>
 
-        <gridster-item [item]="item" id="{{item.id}}">
+                    <button mat-button (click)="onSettings(item)">
+                        <mat-icon>settings</mat-icon>
+                    </button>
 
-            <mat-toolbar class="drag-handler">
-                <mat-toolbar-row style="display: flex;">
-                    {{item.name}}
-
-                    <div style="flex: 1; text-align: right;">
-
-                        <button mat-button (click)="onSettings(item)">
-                            <mat-icon>settings</mat-icon>
-                        </button>
-
-                        <button mat-button (click)="onDelete(item)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-
-                    </div>
-
+                    <button mat-button (click)="onDelete(item)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </mat-toolbar-row>
             </mat-toolbar>
 

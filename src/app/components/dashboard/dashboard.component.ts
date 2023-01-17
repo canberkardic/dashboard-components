@@ -21,29 +21,33 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
   @ViewChildren('component') dynamicComponents!: QueryList<ElementRef>
   @ViewChild('gridsterItem', { static: false }) gridItem!: GridsterItemComponent;
 
-  outputs = {
-    preferenceSetted: (item: any) => this.onPreferenceSetted(item)
-  }
-
   @Input()
   id: any;
 
   @Input()
   name: any;
 
+
+
+  /* 
+    If a child (dashboard component emit)
+  */
+  outputs = {
+    preferenceSetted: (item: any) => this.onPreferenceSetted(item)
+  }
+
   public options: GridsterConfig;
 
   public unitHeight!: number; //needed for highcharts resize
   public item!: GridsterItem;
 
-  public widgets: any[] = [];
-
-  public subscription: any
+  public widgets: IDashboardWidget[];
 
   components = getDashboardComponents();
   isLoading: boolean = false;
 
   showSettingsButton: boolean = true;
+
 
 
   constructor(
@@ -52,7 +56,10 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
     private _dashboardService: DashboardService,
     private dialogService: DialogService,
     private _errorDialogService: ErrorDialogService
-  ) { }
+  ) {
+
+
+  }
 
   findComponent = (param: string) => findComponentInRegistry(param);
 
@@ -64,7 +71,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
     this.getDashboardData(this.name);
   }
 
-  getDashboardData(dashboardId: any) {
+  getDashboardData(id: any) {
     this.isLoading = true;
     this._dashboardService.getDefaultDashboards().subscribe((data: any) => {
       this.isLoading = false;
@@ -80,7 +87,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
       this.options.api.optionsChanged();
     }
 
-    if (changes['dashboardId'] && this.name) {
+    if (changes['id'] && this.name) {
       this.getDashboardData(this.name);
     }
 
@@ -126,9 +133,10 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
       itemResizeCallback: this.itemResize.bind(this),
       setGridSize: true
     };
+
+
+
   }
-
-
 
   public itemResize(item: GridsterItem, itemComponent: GridsterItemComponentInterface): void {
     itemComponent.gridster.curRowHeight += (item.cols * 100 - item.rows) / 10000;
@@ -144,14 +152,22 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
     const { desc, componentName, icon } = JSON.parse(result);
     const myId = uuid.v4();
 
-    const item = {
+
+
+
+    const item: IDashboardWidget = {
       componentUuid: myId,
       cols: 4,
       rows: 4,
+      x: 0,
+      y: 0,
       desc: desc,
       name: componentName,
       icon: icon,
     }
+
+
+
 
     this.widgets.push(item);
     //this.saveDashboard()
@@ -159,9 +175,13 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
 
   onPreferenceSetted(item: any) {
     let foundComponent = this.widgets.find(w => w.componentUuid == item.componentUuid);
-    foundComponent.preferences = item.preferences;
+
+    if (foundComponent) {
+      foundComponent.preferences = item.preferences;
 
     this.saveDashboard()
+    }
+
   }
 
 
@@ -192,7 +212,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
   }
 
   saveDashboard() {
-    //this._dashboardService.saveDashboard(this.dashboardId, this.widgets, this.dashboardName).subscribe();
+    //this._dashboardService.saveDashboard(this.id, this.widgets, this.dashboardName).subscribe();
   }
 
 }

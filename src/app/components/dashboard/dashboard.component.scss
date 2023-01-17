@@ -1,18 +1,28 @@
-
-
-.loading-shade {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 56px;
-    right: 0;
-    background: rgba(0, 0, 0, 0.15);
-    z-index: 1;
-    display: flex;
-    align-items: center;
+.component-toolbar {
+    min-height: 40px;
     justify-content: center;
+    cursor: grab;
+
+    &:active {
+            cursor: grabbing !important;
+        }
+    
+        mat-toolbar-row {
+            display: flex;
+                height: 35px;
+                
+                    .componentName {
+                        cursor: auto;
+                        font-size: 1rem;
+                        margin-right: auto;
+                    }
+                }
 }
 
 .componentContainer {
-    height: calc(100% - 64px);
+    height: calc(100% - 35px);
+    }
+    
+    .gridster {
+        background-color: #e8e8e8;
 }
