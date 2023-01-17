@@ -3,13 +3,10 @@ import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { map, switchMap, mergeMap, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { DialogService } from '../shared/dialog/dialog.service';
+import { IDashboard } from '../models/models';
 
 
-export interface IDashboard {
-  dashboardId: string;
-  name: string;
-  widgets: Array<any>;
-}
+
 
 @Injectable({
   providedIn: 'root'

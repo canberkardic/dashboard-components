@@ -1,38 +1,22 @@
-/**
- * DashboardComponent
- * The main component that handles the dashboard & its actions
- * @author canberkardic <ardiccanberk@gmail.com>
- */
-export interface IDashboardWidget extends GridsterItem {
-  componentUuid: string;
-  name: string;
-  widget: string;
-  preferences: any[];
-}
-
-
 
 import {
   Component, OnInit, Renderer2, ElementRef, AfterViewInit, Input, OnChanges, SimpleChanges, ViewChild, ViewChildren, QueryList
 } from '@angular/core';
-
 import { GridsterConfig, GridType, DisplayGrid, GridsterItemComponent, GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 import * as uuid from 'uuid';
-
-
-
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 
 import { ErrorDialogService } from 'src/app/shared/error-dialog/error-dialog.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { whoUsedIt } from 'src/app/services/decorator/decorator-helpter';
+import { findComponentInRegistry, getDashboardComponents } from 'src/app/services/decorator/decorator-helpter';
+import { IDashboard, IDashboardWidget } from 'src/app/models/models';
 
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
+export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDashboard {
 
   @ViewChildren('component') dynamicComponents!: QueryList<ElementRef>
   @ViewChild('gridsterItem', { static: false }) gridItem!: GridsterItemComponent;
@@ -42,10 +26,10 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   @Input()
-  dashboardId: any;
+  id: any;
 
   @Input()
-  dashboardName: any;
+  name: any;
 
   public options: GridsterConfig;
 
@@ -56,7 +40,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 
   public subscription: any
 
-  components = whoUsedIt();
+  components = getDashboardComponents();
   isLoading: boolean = false;
 
   showSettingsButton: boolean = true;
@@ -70,20 +54,14 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
     private _errorDialogService: ErrorDialogService
   ) { }
 
-
-  findComponent(param: any) {
-    let data = whoUsedIt();
-
-    let c = data.find((d: any) => d.componentName == param);
-    return c.component;
-  }
+  findComponent = (param: string) => findComponentInRegistry(param);
 
   ngOnInit() {
     this.getOptions();
   }
 
   ngAfterViewInit() {
-    this.getDashboardData(this.dashboardId);
+    this.getDashboardData(this.name);
   }
 
   getDashboardData(dashboardId: any) {
@@ -102,8 +80,8 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
       this.options.api.optionsChanged();
     }
 
-    if (changes['dashboardId'] && this.dashboardId) {
-      this.getDashboardData(this.dashboardId);
+    if (changes['dashboardId'] && this.name) {
+      this.getDashboardData(this.name);
     }
 
 
@@ -161,21 +139,12 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   onDrop(event: any) {
-
-
-    /**UUID Generation
-     See https://bit.ly/37dkPPf
-     **/
-
     const result = event.dataTransfer.getData('component');
-
 
     const { desc, componentName, icon } = JSON.parse(result);
     const myId = uuid.v4();
 
-    //let result = this.decoratorService.getDashboardComponent(component);
-
-    let item = {
+    const item = {
       componentUuid: myId,
       cols: 4,
       rows: 4,
@@ -199,13 +168,11 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
   onSettings(item: IDashboardWidget) {
     let dynamicComponents = this.dynamicComponents['_results'];
 
-
-
     let component = dynamicComponents.find((c: any) =>
       c.componentRef.instance.componentUuid == item.componentUuid
-    );
+    )
 
-    component.componentRef.instance.toggleComponentPrefs();
+    component?.componentRef.instance.toggleComponentPrefs();
   }
 
 

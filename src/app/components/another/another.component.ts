@@ -3,7 +3,8 @@ import { Input } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { Component } from '@angular/core';
-import { DashboardComponentDec, IDashboardComponentActions } from 'src/app/services/decorator/decorator-helpter';
+import { IDashboardComponentActions } from 'src/app/models/models';
+import { DashboardComponentDec } from 'src/app/services/decorator/decorator-helpter';
 
 const enterTransition = transition(':enter', [
   style({

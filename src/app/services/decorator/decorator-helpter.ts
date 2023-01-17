@@ -1,31 +1,22 @@
-import { InputDecorator } from "@angular/core";
-import { EventEmitter } from "@angular/core";
+import { IDashboardComponent, IDashboardComponentActions } from "src/app/models/models";
 
-export interface IDashboardComponent {
-    desc?: string,
-    icon: string,
-    componentName: string,
-    component: any
+const COMPONENT_REGISTRY: IDashboardComponent[] = [];
+
+export function getDashboardComponents(): IDashboardComponent[] {
+    return COMPONENT_REGISTRY;
 }
 
-const REGISTRY: any[] = [];
 
+export function findComponentInRegistry(param: string) {
+    let data = getDashboardComponents();
 
-export function whoUsedIt(): any {
-    return REGISTRY;
-}
-export interface IDashboardComponentActions {
-    componentUuid: InputDecorator;
-    preferences: InputDecorator;
-    preferenceSetted: EventEmitter<string>
-    showPreferences: boolean;
-    toggleComponentPrefs(): void
+    let c = data.find((d: IDashboardComponent) => d.componentName == param);
+    return c?.component;
 }
 
-export function DashboardComponentDec(options: any) {
-    return function <T extends new (...args: {}[]) => IDashboardComponentActions>(target: T) {
-        REGISTRY.push(options)
-
+export function DashboardComponentDec(options: IDashboardComponent) {
+    return function <T extends new (...args: any) => IDashboardComponentActions>(target: T) {
+        COMPONENT_REGISTRY.push(options)
     }
 }
 

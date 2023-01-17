@@ -1,24 +1,12 @@
-export interface IDashboard {
-  dashboardId: string;
-  name: string;
-  widgets: Array<any>;
-}
-
-
-export interface ISidenavItem {
-  id: string
-  name: string
-  icon: string
-  widget: string
-}
 
 
 
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IDashboard } from 'src/app/models/models';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { whoUsedIt } from 'src/app/services/decorator/decorator-helpter';
+import { getDashboardComponents } from 'src/app/services/decorator/decorator-helpter';
 
 
 @Component({
@@ -48,7 +36,7 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.sidenavItems = whoUsedIt();
+    this.sidenavItems = getDashboardComponents();
     this._dashboardService.getDefaultDashboards().subscribe((data: any) => {
       this.dashboards = data;
       const { dashboardId, name } = data[0];
@@ -66,7 +54,7 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
   }
 
   onMenuClick(item: IDashboard) {
-    this.dashboardId = item.dashboardId;
+    this.dashboardId = item.id;
     this.dashboardName = item.name;
   }
 
