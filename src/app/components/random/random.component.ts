@@ -3,7 +3,7 @@ import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { Component } from '@angular/core';
 import { IDashboardComponentProps } from 'src/app/models/dashboard-component';
-import { DashboardComponentDec } from 'src/app/services/decorator/decorator-helpter';
+import { DashboardComponentDec } from 'src/app/shared/decorator/decorator-helpter';
 
 
 @DashboardComponentDec({
@@ -25,7 +25,7 @@ export class RandomComponent implements IDashboardComponentProps {
   showPreferences: boolean = true;
 
   @Input()
-  public componentUuid: any;
+  public uuid: any;
 
   @Input()
   public preferences: any;

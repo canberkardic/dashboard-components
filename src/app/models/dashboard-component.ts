@@ -12,7 +12,7 @@ export interface IDashboardComponent {
 
 
 export interface IDashboardComponentProps {
-    componentUuid: InputDecorator;
+    uuid: InputDecorator;
     preferences: InputDecorator;
     preferenceSetted: EventEmitter<string>
     showPreferences: boolean;

@@ -8,7 +8,7 @@ import { DialogService } from 'src/app/shared/dialog/dialog.service';
 
 import { ErrorDialogService } from 'src/app/shared/error-dialog/error-dialog.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { findComponentInRegistry, getDashboardComponents } from 'src/app/services/decorator/decorator-helpter';
+import { findComponentInRegistry, getDashboardComponents } from 'src/app/shared/decorator/decorator-helpter';
 import { IDashboard, IDashboardWidget } from 'src/app/models/dashboard';
 
 @Component({
@@ -36,9 +36,9 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
   }
 
   options: GridsterConfig;
-  item!: GridsterItem;
 
-  widgets: IDashboardWidget[];
+
+  widgetList: IDashboardWidget[];
 
   //needed for highcharts resize
   private unitHeight!: number; 
@@ -59,6 +59,11 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
 
   findComponent = (param: string) => findComponentInRegistry(param);
 
+
+  trackWidget(index: number, wiget: any) {
+    return wiget ? wiget.id : undefined;
+  };
+
   ngOnInit() {
     this.getOptions();
   }
@@ -71,7 +76,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
     this.isLoading = true;
     this._dashboardService.getDefaultDashboards().subscribe((data: any) => {
       this.isLoading = false;
-      this.widgets = [];
+      this.widgetList = [];
     })
   }
 
@@ -95,8 +100,8 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
   }
 
   getItemInputs(item: any) {
-    const { componentUuid, preferences } = item;
-    return { componentUuid, preferences };
+    const { uuid, preferences } = item;
+    return { uuid, preferences };
   }
 
   public getOptions() {
@@ -148,11 +153,8 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
     const { desc, componentName, icon } = JSON.parse(result);
     const myId = uuid.v4();
 
-
-
-
-    const item: IDashboardWidget = {
-      componentUuid: myId,
+    let item: IDashboardWidget = {
+      uuid: myId,
       cols: 4,
       rows: 4,
       x: 0,
@@ -163,15 +165,12 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
       preferences: []
     }
 
-
-
-
-    this.widgets.push(item);
+    this.widgetList.push(item);
     //this.saveDashboard()
   }
 
   onPreferenceSetted(item: IDashboardWidget) {
-    let foundComponent = this.widgets.find(w => w.componentUuid == item.componentUuid);
+    let foundComponent = this.widgetList.find(w => w.uuid == item.uuid);
 
     if (foundComponent) {
       foundComponent.preferences = item.preferences;
@@ -186,7 +185,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
     let dynamicComponents = this.dynamicComponents['_results'];
 
     let component = dynamicComponents.find((c: any) =>
-      c.componentRef.instance.componentUuid == item.componentUuid
+      c.componentRef.instance.uuid == item.uuid
     )
 
     component?.componentRef.instance.toggleComponentPrefs();
@@ -199,7 +198,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.widgets.splice(this.widgets.indexOf(widget), 1);
+        this.widgetList.splice(this.widgetList.indexOf(widget), 1);
         this.saveDashboard()
 
         const gridsterPreviewElements = this.elementRef.nativeElement.getElementsByTagName('gridster-preview');

@@ -26,7 +26,7 @@
                     </centered>
 
             <mat-menu #dashboardMenu="matMenu">
-                <mat-list class="centered" role="list" *ngFor="let d of dashboards">
+                <mat-list class="centered" role="list" *ngFor="let d of dashboards;">
                     <mat-list-item role="listitem">
             
                         <button class="centered" mat-button target="_blank" (click)="onMenuClick(d)">
@@ -54,7 +54,7 @@
     </mat-toolbar>
 
 
-    <mat-sidenav #componentsSidenav position="end" mode="over" autosize style="background-color: #F4F7FC;">
+    <mat-sidenav #componentsSidenav position="end" mode="over" autosize>
         <mat-list class="sidenavList">
 
             <button mat-stroked-button (click)="onToggleSidenav()" style="width: 100%;">
@@ -64,7 +64,7 @@
 
             <hr>
 
-            <mat-card draggable="true" (dragstart)="onDragStart($event, item)" *ngFor="let item of sidenavItems"
+            <mat-card *ngFor="let item of sidenavItems" draggable="true" (dragstart)="onDragStart($event, item)"
                 class="sidenavCard">
 
                 <div class="draggables">
