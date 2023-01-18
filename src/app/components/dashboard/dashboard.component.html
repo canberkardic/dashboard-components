@@ -1,7 +1,7 @@
 <gridster [options]="options" class="gridster" (onDrop)="onDrop($event)">
 
     <ng-container *ngFor="let widget of widgetList; trackBy:trackWidget" [style.overflow]="'hidden'">
-        <gridster-item [item]="widget" id="{{widget.componentUuid}}">
+        <gridster-item [item]="widget" id="{{widget.uuid}}">
 
             <mat-toolbar class="drag-handler component-toolbar">
                 <mat-toolbar-row>

@@ -15,7 +15,7 @@ import { getDashboardComponents } from 'src/app/shared/decorator/decorator-helpt
 export class DashboardContainerComponent implements OnInit, AfterViewInit {
   @ViewChild('componentsSidenav', { static: true }) public componentSidenav: MatSidenav;
 
-  sidenavItems?: IDashboardComponent[];
+  components?: IDashboardComponent[];
   dashboards: IDashboard[];
 
   dashboardId: string;
@@ -30,7 +30,7 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.sidenavItems = getDashboardComponents();
+    this.components = getDashboardComponents();
     this._dashboardService.getDefaultDashboards().subscribe((data: IDashboard[]) => {
       const { id, name } = data[0];
       this.dashboards = data;

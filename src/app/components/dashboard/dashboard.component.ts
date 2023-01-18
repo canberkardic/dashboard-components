@@ -51,8 +51,6 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
     private dialogService: DialogService,
     private _errorDialogService: ErrorDialogService
   ) {
-
-
   }
 
   findComponent = (param: string) => findComponentInRegistry(param);
@@ -178,10 +176,6 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
 
   onSettings(item: IDashboardWidget) {
     let dynamicComponents = this.dynamicComponents['_results'];
-
-    console.log("Burda", dynamicComponents);
-
-
 
     let component = dynamicComponents.find((c: any) =>
       c.componentRef.instance.uuid == item.uuid

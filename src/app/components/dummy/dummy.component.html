@@ -1,2 +1,9 @@
-<p>{{uuid}}</p>
-<p>Listeler</p>
+<ng-container *ngIf="!showPreferences">
+    <p>{{uuid}}</p>
+    <p>Listeler</p>
+</ng-container>
+
+<ng-container *ngIf="showPreferences">
+    <p>{{uuid}}</p>
+    <p>Seçenekler</p>
+</ng-container>
