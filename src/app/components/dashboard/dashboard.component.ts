@@ -7,9 +7,9 @@ import * as uuid from 'uuid';
 
 import { IDashboard, IDashboardWidget } from 'src/app/models/dashboard';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { findComponentInRegistry } from 'src/app/shared/decorator/decorator-helpter';
 import { ErrorDialogService } from 'src/app/shared/error-dialog/error-dialog.service';
 import { IDashboardComponent } from '../../models/dashboard-component';
+import { findComponentInRegistry } from 'src/app/shared/decorator/dashboard-component-decorator-helper';
 
 @Component({
   selector: 'dashboard',

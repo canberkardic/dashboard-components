@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IDashboard } from 'src/app/models/dashboard';
 import { IDashboardComponent } from 'src/app/models/dashboard-component';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { getDashboardComponents } from 'src/app/shared/decorator/decorator-helpter';
+import { getDashboardComponents } from '../../shared/decorator/dashboard-component-decorator-helper';
+
 
 @Component({
   selector: 'app-dashboard-container',

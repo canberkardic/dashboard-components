@@ -1,5 +1,3 @@
-
-
 <mat-sidenav-container style="height: 100%;" [hasBackdrop]="false">
     <mat-toolbar class="toolbar">
         <div class="dashboardNameContainer" style="margin-right: auto;">
@@ -14,32 +12,33 @@
                 <input prefix matInputs class="dashboardNameInput" autocomplete="off" *ngIf='editDashboardNameMode'
                     [(ngModel)]='dashboardName' appAutofocus type='text'>
 
-                    <span body>
-                        <button mat-icon-button *ngIf="!editDashboardNameMode" (click)="editDashboardName()">
-                            <mat-icon>edit</mat-icon>
-                        </button>
+                <span body>
+                    <button mat-icon-button *ngIf="!editDashboardNameMode" (click)="editDashboardName()">
+                        <mat-icon>edit</mat-icon>
+                    </button>
 
-                        <button mat-icon-button *ngIf="editDashboardNameMode" (click)="saveDashboardName()">
-                            <mat-icon>save</mat-icon>
-                        </button>
-                    </span>
-                    </centered>
+                    <button mat-icon-button *ngIf="editDashboardNameMode" (click)="saveDashboardName()">
+                        <mat-icon>save</mat-icon>
+                    </button>
+                </span>
+            </centered>
 
             <mat-menu #dashboardMenu="matMenu">
                 <mat-list class="centered" role="list" *ngFor="let d of dashboards;">
                     <mat-list-item role="listitem">
-            
+
                         <button class="centered" mat-button target="_blank" (click)="onMenuClick(d)">
                             <span class="toolbarText"> {{d.name}}</span>
                         </button>
 
-                    <button style="float: right;" mat-icon-button target="_blank" (click)="onNewTab(d);$event.stopPropagation()">
-                        <mat-icon>open_in_new</mat-icon>
-                    </button>
+                        <button style="float: right;" mat-icon-button target="_blank"
+                            (click)="onNewTab(d);$event.stopPropagation()">
+                            <mat-icon>open_in_new</mat-icon>
+                        </button>
 
                     </mat-list-item>
-                    </mat-list>
-                    </mat-menu>
+                </mat-list>
+            </mat-menu>
         </div>
 
         <button mat-button class="toolbarText" (click)="onToggleSidenav()">
@@ -50,7 +49,7 @@
                 </span>
             </centered>
         </button>
-    
+
     </mat-toolbar>
 
 
@@ -68,7 +67,7 @@
                 class="sidenavCard">
 
                 <div class="draggables">
-                    <img mat-card-sm-image [src]="item.icon">
+                    <img mat-card-sm-image class="sidenavIcon" [src]="item.icon">
 
                     <mat-card-content>
                         <mat-card-subtitle>
