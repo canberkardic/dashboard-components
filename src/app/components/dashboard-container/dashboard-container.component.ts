@@ -17,8 +17,10 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
 
   sidenavItems?: IDashboardComponent[];
   dashboards: IDashboard[];
-  id: string;
+
+  dashboardId: string;
   dashboardName: string;
+
   editDashboardNameMode: boolean = false;
 
   constructor(
@@ -33,7 +35,7 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
       const { id, name } = data[0];
       this.dashboards = data;
 
-      this.id = id;
+      this.dashboardId = id;
       this.dashboardName = name;
     })
   }
@@ -47,7 +49,7 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
   }
 
   onMenuClick(item: IDashboard) {
-    this.id = item.id;
+    this.dashboardId = item.id;
     this.dashboardName = item.name;
   }
 
@@ -62,6 +64,7 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
 
   saveDashboardName() {
     this.editDashboardName();
+    // makea a service call
   }
 
   onDragStart(event: DragEvent, data: any) {

@@ -1,4 +1,5 @@
 type TClass = { new(...args: any[]): any; }; // Indicates that, this must be a class
+
 import { InputDecorator } from "@angular/core";
 import { EventEmitter } from "@angular/core";
 

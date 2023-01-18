@@ -1,15 +1,14 @@
 
-import {
-  Component, OnInit, Renderer2, ElementRef, AfterViewInit, Input, OnChanges, SimpleChanges, ViewChild, ViewChildren, QueryList
-} from '@angular/core';
-import { GridsterConfig, GridType, DisplayGrid, GridsterItemComponent, GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
-import * as uuid from 'uuid';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, QueryList, Renderer2, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { DisplayGrid, GridsterConfig, GridsterItem, GridsterItemComponent, GridsterItemComponentInterface, GridType } from 'angular-gridster2';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 
-import { ErrorDialogService } from 'src/app/shared/error-dialog/error-dialog.service';
-import { DashboardService } from 'src/app/services/dashboard.service';
-import { findComponentInRegistry, getDashboardComponents } from 'src/app/shared/decorator/decorator-helpter';
+import * as uuid from 'uuid';
+
 import { IDashboard, IDashboardWidget } from 'src/app/models/dashboard';
+import { DashboardService } from 'src/app/services/dashboard.service';
+import { findComponentInRegistry } from 'src/app/shared/decorator/decorator-helpter';
+import { ErrorDialogService } from 'src/app/shared/error-dialog/error-dialog.service';
 
 @Component({
   selector: 'dashboard',
@@ -36,7 +35,6 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
   }
 
   options: GridsterConfig;
-
 
   widgetList: IDashboardWidget[];
 
@@ -83,7 +81,6 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
   ngOnChanges(changes: SimpleChanges) {
     this.getOptions();
 
-
     if (this.options.api && this.options.api.optionsChanged) {
       this.options.api.optionsChanged();
     }
@@ -91,8 +88,6 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
     if (changes['id'] && this.name) {
       this.getDashboardData(this.name);
     }
-
-
 
     if (this.gridItem && this.gridItem.gridster.curRowHeight > 1) {
       this.unitHeight = this.gridItem.gridster.curRowHeight;
@@ -183,6 +178,10 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
 
   onSettings(item: IDashboardWidget) {
     let dynamicComponents = this.dynamicComponents['_results'];
+
+    console.log("Burda", dynamicComponents);
+
+
 
     let component = dynamicComponents.find((c: any) =>
       c.componentRef.instance.uuid == item.uuid
