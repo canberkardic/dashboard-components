@@ -11,7 +11,8 @@ import { DashboardComponentDec } from 'src/app/shared/decorator/decorator-helpte
   desc: 'DummyDesc',
   icon: './assets/sidenav-icons/graph.png',
   componentName: 'DummyComponent',
-  component: DummyComponent
+  component: DummyComponent,
+  hasPreferences: true
 })
 
 @Component({

@@ -9,6 +9,7 @@ import { IDashboard, IDashboardWidget } from 'src/app/models/dashboard';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { findComponentInRegistry } from 'src/app/shared/decorator/decorator-helpter';
 import { ErrorDialogService } from 'src/app/shared/error-dialog/error-dialog.service';
+import { IDashboardComponent } from '../../models/dashboard-component';
 
 @Component({
   selector: 'dashboard',
@@ -39,7 +40,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
   widgetList: IDashboardWidget[];
 
   //needed for highcharts resize
-  private unitHeight!: number; 
+  private unitHeight!: number;
 
   isLoading: boolean = false;
   showSettingsButton: boolean = true;
@@ -141,9 +142,9 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
   }
 
   onDrop(event: any) {
-    const result = event.dataTransfer.getData('component');
+    const transferredComponentData: IDashboardComponent = JSON.parse(event.dataTransfer.getData('component'));
 
-    const { desc, componentName, icon } = JSON.parse(result);
+    const { desc, componentName, icon, hasPreferences } = transferredComponentData;
     const myId = uuid.v4();
 
     let item: IDashboardWidget = {
@@ -155,7 +156,8 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
       desc: desc,
       name: componentName,
       icon: icon,
-      preferences: []
+      preferences: [],
+      hasPreferences: hasPreferences
     }
 
     this.widgetList.push(item);
@@ -168,7 +170,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
     if (foundComponent) {
       foundComponent.preferences = item.preferences;
 
-    this.saveDashboard()
+      this.saveDashboard()
     }
 
   }

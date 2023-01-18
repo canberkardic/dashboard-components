@@ -9,7 +9,7 @@
                         {{widget.name}}
                     </span>
 
-                    <button mat-button (click)="onSettings(widget)">
+                    <button *ngIf="widget.hasPreferences" mat-button (click)="onSettings(widget)">
                         <mat-icon>settings</mat-icon>
                     </button>
 
@@ -20,8 +20,8 @@
             </mat-toolbar>
 
             <div class="componentContainer">
-                <ndc-dynamic #component [ndcDynamicComponent]=findComponent(widget.name) [ndcDynamicInputs]="getItemInputs(widget)"
-                    [ndcDynamicOutputs]="outputs">
+                <ndc-dynamic #component [ndcDynamicComponent]=findComponent(widget.name)
+                    [ndcDynamicInputs]="getItemInputs(widget)" [ndcDynamicOutputs]="outputs">
                 </ndc-dynamic>
             </div>
         </gridster-item>

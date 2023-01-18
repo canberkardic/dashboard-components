@@ -37,6 +37,7 @@ export const fadeOut = trigger('fadeOut', [
   icon: './assets/sidenav-icons/A.png',
   componentName: 'AnotherComp',
   component: AnotherComponent,
+  hasPreferences: true
 })
 
 @Component({

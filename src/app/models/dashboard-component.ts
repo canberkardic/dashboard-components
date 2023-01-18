@@ -8,6 +8,7 @@ export interface IDashboardComponent {
     desc?: string;
     icon: string;
     componentName: string;
+    hasPreferences: boolean;
     component: TClass;
 }
 

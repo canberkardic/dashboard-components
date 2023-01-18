@@ -11,5 +11,6 @@ export interface IDashboardWidget extends GridsterItem {
     uuid: string;
     name: string;
     widget?: string;
-    preferences: any[];
+    hasPreferences: boolean;
+    preferences: any;
 }

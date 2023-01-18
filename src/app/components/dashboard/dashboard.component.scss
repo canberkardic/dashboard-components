@@ -4,25 +4,29 @@
     cursor: grab;
 
     &:active {
-            cursor: grabbing !important;
+        cursor: grabbing !important;
+    }
+
+    mat-toolbar-row {
+        display: flex;
+        height: 35px;
+
+        .componentName {
+            cursor: grab;
+            font-size: 1rem;
+            margin-right: auto;
+
+            &:active {
+                cursor: grabbing;
+            }
         }
-    
-        mat-toolbar-row {
-            display: flex;
-                height: 35px;
-                
-                    .componentName {
-                        cursor: auto;
-                        font-size: 1rem;
-                        margin-right: auto;
-                    }
-                }
+    }
 }
 
 .componentContainer {
     height: calc(100% - 35px);
-    }
-    
-    .gridster {
-        background-color: #e8e8e8;
+}
+
+.gridster {
+    background-color: #e8e8e8;
 }

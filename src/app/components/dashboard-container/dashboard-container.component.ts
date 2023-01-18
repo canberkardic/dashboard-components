@@ -67,7 +67,7 @@ export class DashboardContainerComponent implements OnInit, AfterViewInit {
     // makea a service call
   }
 
-  onDragStart(event: DragEvent, data: any) {
+  onDragStart(event: DragEvent, data: IDashboardComponent) {
     if (event.dataTransfer) {
       event.dataTransfer?.setData('component', JSON.stringify(data));
       event.dataTransfer.dropEffect = 'copy';
