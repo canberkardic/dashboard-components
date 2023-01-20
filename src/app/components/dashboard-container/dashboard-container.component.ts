@@ -7,6 +7,7 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 
 import { getDashboardComponents } from '../../shared/decorator/dashboard-component-decorator-helper';
 import { DashboardStore, defaultState, DashboardContainerState } from './dashboard-store';
+import { DialogService } from '../../shared/dialog/dialog.service';
 
 @Component({
   selector: 'app-dashboard-container',
@@ -32,7 +33,8 @@ export class DashboardContainerComponent implements OnInit {
     private _dashboardService: DashboardService,
     private route: ActivatedRoute,
     private router: Router,
-    private dashboardStore: DashboardStore
+    private dashboardStore: DashboardStore,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit() {
@@ -94,6 +96,16 @@ export class DashboardContainerComponent implements OnInit {
 
   onToggleSidenav() {
     this.componentSidenav.toggle();
+  }
+  onSetToDefaults() {
+    let dialogRef = this.dialogService.openCustomDialog('Are you sure to restore dashbord to defaults', true);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.dashboardStore.restoreToDefaults();
+        window.location.reload();
+      }
+    })
   }
 
   toggleEditMode() {

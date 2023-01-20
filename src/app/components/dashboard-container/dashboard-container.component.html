@@ -46,6 +46,15 @@
             </mat-menu>
         </div>
 
+        <button mat-button class="toolbarText" (click)="onSetToDefaults()">
+            <centered>
+                <mat-icon prefix>restore</mat-icon>
+                <span body class="toolbarText">
+                    Set to defaults
+                </span>
+            </centered>
+        </button>
+
         <button mat-button class="toolbarText" (click)="onToggleSidenav()">
             <centered>
                 <mat-icon prefix>widgets</mat-icon>

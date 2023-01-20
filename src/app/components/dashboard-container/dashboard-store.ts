@@ -16,7 +16,7 @@ export interface DashboardContainerState {
 
 export const defaultState: DashboardContainerState = {
   dashboards: [],
-  selectedDashboard: { id: "1", name: "asda", widgetList: [] },
+  selectedDashboard: { id: "1", name: "Dashboard 1", widgetList: [] },
 }
 
 @Injectable()
@@ -63,12 +63,13 @@ export class DashboardStore extends ComponentStore<DashboardContainerState> {
       let value = { dashboards: dashboards, selectedDashboard: selectedDashboard }
       localStorage.setItem('dashboards', JSON.stringify(value))
     })
-
   }
 
 
-  // EFFECTS
 
+
+
+  // EFFECTS
   readonly updateDashboardEffect = this.effect((dashboardData$: Observable<IDashboard>) => {
     return dashboardData$.pipe(
       switchMap((data: IDashboard) => this.dashboardService.updateDashboard(data).pipe(
@@ -82,6 +83,12 @@ export class DashboardStore extends ComponentStore<DashboardContainerState> {
       )
     )
   });
+
+
+  restoreToDefaults() {
+    localStorage.removeItem('dashboards');
+    this.setState(defaultState);
+  }
 
 
   readonly updateDashboardsEffect = this.effect((dashboardData$: Observable<IDashboard[]>) => {

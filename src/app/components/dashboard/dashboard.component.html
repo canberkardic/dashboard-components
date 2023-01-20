@@ -8,9 +8,6 @@
                     <span class="componentName">
                         {{widget.name}}
                     </span>
-                    {{id | json}}
-
-
 
                     <button *ngIf="widget.hasPreferences" mat-button (click)="onSettings(widget)">
                         <mat-icon>settings</mat-icon>
