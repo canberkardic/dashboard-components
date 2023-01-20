@@ -1,14 +1,17 @@
-<div *ngIf="!showPreferences">
-    <p>{{uuid}}</p>
-    <p>Günlük Raporlar</p>
-</div>
+<ng-container>
 
-<div *ngIf="showPreferences" [@fadeInOut]>
-    <div>
-
-        <label>
-            Seçenekler
-        </label>
-        <input matInput>
+    <div *ngIf="!showPreferences" [@fadeInOut]>
+        <p>{{uuid}}</p>
+        <p>Günlük Raporlar</p>
     </div>
-</div>
+
+    <div *ngIf="showPreferences">
+        <div>
+
+            <label>
+                Seçenekler
+            </label>
+            <input matInput>
+        </div>
+    </div>
+</ng-container>

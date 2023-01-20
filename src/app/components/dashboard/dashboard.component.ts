@@ -10,6 +10,7 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 import { ErrorDialogService } from 'src/app/shared/error-dialog/error-dialog.service';
 import { IDashboardComponent } from '../../models/dashboard-component';
 import { findComponentInRegistry } from 'src/app/shared/decorator/dashboard-component-decorator-helper';
+import { DashboardStore } from '../dashboard-container/dashboard-store';
 
 @Component({
   selector: 'dashboard',
@@ -26,6 +27,9 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
 
   @Input()
   name: string;
+
+  @Input()
+  data: IDashboard;
 
   /* 
     If a child (dashboard component emit settings from it's configuration)
@@ -50,7 +54,8 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
     private renderer: Renderer2,
     private _dashboardService: DashboardService,
     private dialogService: DialogService,
-    private _errorDialogService: ErrorDialogService
+    private _errorDialogService: ErrorDialogService,
+    private dashboardStore: DashboardStore
   ) {
   }
 
@@ -66,7 +71,8 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
   }
 
   ngAfterViewInit() {
-    this.getDashboardData(this.name);
+    console.log("Widget Verisi", this.data);
+
   }
 
   getDashboardData(id: any) {
@@ -139,6 +145,8 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
       this.unitHeight = itemComponent.gridster.curRowHeight;
       item['unitHeight'] = this.unitHeight;
     }
+
+
   }
 
   onDrop(event: any) {
@@ -161,6 +169,8 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
     }
 
     this.widgetList.push(item);
+    this.updateDashboard();
+
     //this.saveDashboard()
   }
 
@@ -187,6 +197,12 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
   }
 
 
+  updateDashboard() {
+    let dashboardObj: IDashboard = { id: this.id, name: this.name, widgetList: this.widgetList };
+    this.dashboardStore.updateDashboardEffect(dashboardObj);
+  }
+
+
 
   onDelete(widget: any) {
     let dialogRef = this.dialogService.openCustomDialog('Are you sure to delete', true);
@@ -194,15 +210,23 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.widgetList.splice(this.widgetList.indexOf(widget), 1);
-        this.saveDashboard()
 
         const gridsterPreviewElements = this.elementRef.nativeElement.getElementsByTagName('gridster-preview');
-        this.renderer.setStyle(gridsterPreviewElements[0], 'background', '#fafafa')
+        this.renderer.setStyle(gridsterPreviewElements[0], 'background', '#fafafa');
+
+        setTimeout(() => {
+          this.updateDashboard();
+        }, 1500);
+
       }
     })
+
+
   }
 
   saveDashboard() {
+    this.updateDashboard();
+
     //this._dashboardService.saveDashboard(this.id, this.widgets, this.dashboardName).subscribe();
   }
 

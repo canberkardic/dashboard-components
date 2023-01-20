@@ -19,7 +19,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { DashboardContainerComponent } from './components/dashboard-container/dashboard-container.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DummyComponent } from './components/dummy/dummy.component';
 import { AnotherComponent } from './components/another/another.component';
 import { RandomComponent } from './components/random/random.component';
@@ -37,6 +37,8 @@ import { CenteredComponent } from './shared/centered/centered.component';
     CenteredComponent,
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     DynamicModule,
     MatCardModule,
     MatInputModule,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { DialogService } from '../shared/dialog/dialog.service';
 import { IDashboard } from '../models/dashboard';
 
@@ -23,4 +23,13 @@ export class DashboardService {
     return this._http.get<IDashboard[]>(this.DEFAULT_DASHBOARDS);
   }
 
+
+  updateDashboard(data: any): Observable<IDashboard[]> {
+    return of([]);
+  }
+
+  updateAllDashboards(data: any): Observable<IDashboard[]> {
+    return of([]);
+  }
 }
+

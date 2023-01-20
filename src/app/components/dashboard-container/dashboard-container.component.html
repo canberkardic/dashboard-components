@@ -1,30 +1,35 @@
-<mat-sidenav-container style="height: 100%;" [hasBackdrop]="false">
+<mat-sidenav-container style="height: 100%;" [hasBackdrop]="false"
+    *ngIf="selectedDashboard$ | async as selectedDashboard">
     <mat-toolbar class="toolbar">
         <div class="dashboardNameContainer" style="margin-right: auto;">
             <button *ngIf="!editDashboardNameMode" mat-button [matMenuTriggerFor]="dashboardMenu">
                 <centered>
-                    <span body class="toolbarText"> {{ dashboardName }} </span>
+                    <span body class="toolbarText"> {{ selectedDashboard.name }} </span>
                     <mat-icon suffix>arrow_drop_down</mat-icon>
                 </centered>
             </button>
 
             <centered>
                 <input prefix matInputs class="dashboardNameInput" autocomplete="off" *ngIf='editDashboardNameMode'
-                    [(ngModel)]='dashboardName' appAutofocus type='text'>
+                    [(ngModel)]="selectedDashboard.name" appAutofocus type='text'>
 
                 <span body>
-                    <button mat-icon-button *ngIf="!editDashboardNameMode" (click)="editDashboardName()">
+                    <button mat-icon-button *ngIf="!editDashboardNameMode" (click)="toggleEditMode()">
                         <mat-icon>edit</mat-icon>
                     </button>
 
-                    <button mat-icon-button *ngIf="editDashboardNameMode" (click)="saveDashboardName()">
+                    <button mat-icon-button *ngIf="editDashboardNameMode" (click)="saveDashboard()">
                         <mat-icon>save</mat-icon>
+                    </button>
+
+                    <button mat-icon-button *ngIf="editDashboardNameMode" (click)="cancelEdit()">
+                        <mat-icon>cancel</mat-icon>
                     </button>
                 </span>
             </centered>
 
             <mat-menu #dashboardMenu="matMenu">
-                <mat-list class="centered" role="list" *ngFor="let d of dashboards;">
+                <mat-list class="centered" role="list" *ngFor="let d of dashboards$ | async">
                     <mat-list-item role="listitem">
 
                         <button class="centered" mat-button target="_blank" (click)="onMenuClick(d)">
@@ -81,6 +86,11 @@
     </mat-sidenav>
 
     <div style="width: 100%; height: 100%;">
-        <dashboard [id]="dashboardId" [name]="dashboardName"></dashboard>
+        <dashboard [data]="selectedDashboard" [id]="selectedDashboard.id" [name]="selectedDashboard.name"></dashboard>
     </div>
 </mat-sidenav-container>
+
+
+<div *ngIf="!selectedDashboard$">
+    Loading
+</div>
