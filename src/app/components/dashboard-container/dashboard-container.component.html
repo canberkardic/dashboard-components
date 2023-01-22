@@ -1,24 +1,29 @@
-<mat-sidenav-container style="height: 100%;" [hasBackdrop]="false"
-    *ngIf="selectedDashboard$ | async as selectedDashboard">
-    <mat-toolbar class="toolbar">
+<mat-sidenav-container style="height: 100%;" [hasBackdrop]="false" *ngIf="vm$ | async as vm">
+    <div *ngIf="vm.loading" class="loading-area">
+        <h1>
+            Loading dashboards
+        </h1>
+        <mat-spinner></mat-spinner>
+    </div>
+    <mat-toolbar class="toolbar" *ngIf="!vm.loading">
         <div class="dashboardNameContainer" style="margin-right: auto;">
             <button *ngIf="!editDashboardNameMode" mat-button [matMenuTriggerFor]="dashboardMenu">
                 <centered>
-                    <span body class="toolbarText"> {{ selectedDashboard.name }} </span>
+                    <span body class="toolbarText"> {{ vm.selectedDashboard.name }} </span>
                     <mat-icon suffix>arrow_drop_down</mat-icon>
                 </centered>
             </button>
 
             <centered>
                 <input prefix matInputs class="dashboardNameInput" autocomplete="off" *ngIf='editDashboardNameMode'
-                    [(ngModel)]="selectedDashboard.name" appAutofocus type='text'>
+                    [formControl]="dashboardNameControl" appAutofocus type='text'>
 
                 <span body>
                     <button mat-icon-button *ngIf="!editDashboardNameMode" (click)="toggleEditMode()">
                         <mat-icon>edit</mat-icon>
                     </button>
 
-                    <button mat-icon-button *ngIf="editDashboardNameMode" (click)="saveDashboard()">
+                    <button mat-icon-button *ngIf="editDashboardNameMode" (click)="saveDashboard(vm.selectedDashboard)">
                         <mat-icon>save</mat-icon>
                     </button>
 
@@ -95,11 +100,12 @@
     </mat-sidenav>
 
     <div style="width: 100%; height: 100%;">
-        <dashboard [data]="selectedDashboard" [id]="selectedDashboard.id" [name]="selectedDashboard.name"></dashboard>
+        <dashboard [data]="vm.selectedDashboard" [id]="vm.selectedDashboard.id" [name]="vm.selectedDashboard.name">
+        </dashboard>
     </div>
 </mat-sidenav-container>
 
 
-<div *ngIf="!selectedDashboard$">
-    Loading
+<div *ngIf="vm$ | async as vm">
+    {{vm.error}}
 </div>

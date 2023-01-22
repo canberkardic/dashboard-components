@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { DialogService } from '../shared/dialog/dialog.service';
 import { IDashboard } from '../models/dashboard';
+import { debounceTime, delay } from 'rxjs/operators';
 
 
 
@@ -20,7 +21,9 @@ export class DashboardService {
   ) { }
 
   getDefaultDashboards(): Observable<IDashboard[]> {
-    return this._http.get<IDashboard[]>(this.DEFAULT_DASHBOARDS);
+    return this._http.get<IDashboard[]>(this.DEFAULT_DASHBOARDS).pipe(
+      delay(1000)
+    )
   }
 
 

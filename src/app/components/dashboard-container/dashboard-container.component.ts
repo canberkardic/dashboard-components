@@ -8,12 +8,16 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 import { getDashboardComponents } from '../../shared/decorator/dashboard-component-decorator-helper';
 import { DashboardStore, defaultState, DashboardContainerState } from './dashboard-store';
 import { DialogService } from '../../shared/dialog/dialog.service';
+import { provideComponentStore } from '@ngrx/component-store';
+import { FormControl } from '@angular/forms';
+import { pairwise } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard-container',
   templateUrl: './dashboard-container.component.html',
   styleUrls: ['./dashboard-container.component.scss'],
-  providers: [DashboardStore]
+  providers: [provideComponentStore(DashboardStore)]
 })
 export class DashboardContainerComponent implements OnInit {
   @ViewChild('componentsSidenav', { static: false }) public componentSidenav: MatSidenav;
@@ -24,11 +28,14 @@ export class DashboardContainerComponent implements OnInit {
   selectedDashboard$ = this.dashboardStore.selectedDashboard$;
   dashboards$ = this.dashboardStore.dashboards$;
 
+  vm$ = this.dashboardStore.vm$;
+
   editDashboardNameMode: boolean = false;
 
   // Keep a clone in order to keep a copy of selected dashboard
   selectedDashboardCopy: IDashboard;
 
+  dashboardNameControl: FormControl = new FormControl('');
   constructor(
     private _dashboardService: DashboardService,
     private route: ActivatedRoute,
@@ -38,46 +45,27 @@ export class DashboardContainerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.initializeData();
     this.components = getDashboardComponents();
 
-    this.dashboardStore.stateData$.subscribe(data => {
-      console.log("State", data);
+    this.dashboardStore.selectedDashboard$.subscribe(data => {
+      this.dashboardNameControl.setValue(data.name);
     })
-  }
-
-  initializeData() {
-
-    let data = localStorage.getItem('dashboards');
-    if (data) {
-      let dashboardData = JSON.parse(data);
-      this.dashboardStore.setState(dashboardData);
-    } else {
-      this._dashboardService.getDefaultDashboards().subscribe((dashboardData: IDashboard[]) => {
-        if (dashboardData) {
-          const selectedDashboard = dashboardData[0];
-          this.dashboards = dashboardData;
-
-          this.dashboardStore.loadDashboards(dashboardData);
-          this.dashboardStore.updateSelectedDashboard(selectedDashboard);
-
-          this.cloneSelectedDashboard(selectedDashboard)
-        }
-      })
-    }
-
 
   }
-
 
   cancelEdit() {
-    this.dashboardStore.updateDashboardEffect((this.selectedDashboardCopy));
+    this.dashboardNameControl.reset();
+
+    this.dashboardStore.selectedDashboard$.subscribe(data => {
+      this.dashboardNameControl.setValue(data.name);
+    })
 
     this.toggleEditMode();
   }
 
-  saveDashboard() {
-    this.dashboardStore.updateDashboardEffect(this.selectedDashboard$);
+  saveDashboard(dashboard: IDashboard) {
+    let newData: IDashboard = { ...dashboard, name: this.dashboardNameControl.value }
+    this.dashboardStore.updateDashboardEffect(newData);
     this.toggleEditMode();
   }
 
@@ -97,13 +85,13 @@ export class DashboardContainerComponent implements OnInit {
   onToggleSidenav() {
     this.componentSidenav.toggle();
   }
+
   onSetToDefaults() {
     let dialogRef = this.dialogService.openCustomDialog('Are you sure to restore dashbord to defaults', true);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.dashboardStore.restoreToDefaults();
-        window.location.reload();
       }
     })
   }

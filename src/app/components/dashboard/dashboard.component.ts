@@ -71,7 +71,6 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit, IDa
   }
 
   ngAfterViewInit() {
-    console.log("Widget Verisi", this.data);
 
   }
 
